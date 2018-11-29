@@ -1,8 +1,10 @@
 
 public class Display {
 	
-
-
+	/******************************************************************************************************
+	 * Prints dashed line
+	 * @param line (line length)
+	 ******************************************************************************************************/
 	public static void dashLine (int line) 
 	{	
 
@@ -13,6 +15,10 @@ public class Display {
 		
 	} // end dashLine
 	
+	/******************************************************************************************************
+	 * Prints starred line
+	 * @param line (line length)
+	 ******************************************************************************************************/
 	public static void starLine (int line) 
 	{	
 
@@ -23,6 +29,12 @@ public class Display {
 		
 	} // end starLine
 	
+	/******************************************************************************************************
+	 * Prints the title bar for the page
+	 * @param pageTitle (title for given page)
+	 * @param titleLine (line next to title)
+	 * @param fullLine (lines above and below title line)
+	 ******************************************************************************************************/
 	public static void pageTitleBar (String pageTitle, int titleLine, int fullLine)
 	{	
 		starLine(fullLine);
@@ -36,6 +48,10 @@ public class Display {
 		
 	} // end allLeadsTitleBar
 	
+	/******************************************************************************************************
+	 * Prints "All Leads" header for array values
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
 	public static void leadsHeader (int fullLine)
 	{
 		dashLine(fullLine);
@@ -46,6 +62,10 @@ public class Display {
 		System.out.println( );
 	} // end allLeadsFooter
 	
+	/******************************************************************************************************
+	 * Prints menu options below the title bar for "All Leads" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
 	public static void allLeadsMenu (int fullLine)
 	{
 		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
@@ -54,6 +74,10 @@ public class Display {
 		System.out.println( );
 	} // end allLeadsFooter
 	
+	/******************************************************************************************************
+	 * Prints menu options below the array table for "All Leads" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
 	public static void allLeadsFooter (int fullLine)
 	{		
 		System.out.println( );
@@ -69,6 +93,10 @@ public class Display {
 		System.out.println( );
 	} // end allLeadsFooter
 	
+	/******************************************************************************************************
+	 * Prints menu options below the title bar for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
 	public static void viewLeadMenu (int fullLine)
 	{
 		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
@@ -77,6 +105,10 @@ public class Display {
 		System.out.println( );
 	} // end allLeadsFooter
 	
+	/******************************************************************************************************
+	 * Prints menu options below the array table for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
 	public static void viewLeadFooter (int fullLine)
 	{
 		System.out.println( );
