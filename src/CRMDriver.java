@@ -16,7 +16,8 @@ public class CRMDriver {
 		
 		Lead [] leadArray = new Lead [MAX]; // Declaring and initializing array of leads
 		importList (leadArray);
-		viewAllLeads (leadArray);
+//		viewAllLeads (leadArray);
+		Pages.viewAllLeads(leadArray);
 //		viewSingleLead (leadArray);
 
 	} // end main
@@ -97,9 +98,13 @@ public class CRMDriver {
 	 ******************************************************************************************************/
 	public static void viewAllLeads(Lead [] leadArray )
 	{
-		int titleLine = 66;
-		int fullLine = 147;	
-		Display.leadsTitleBar(titleLine, fullLine);
+		String pageTitle = "   ALL LEADS   "; // page title
+		int titleLine = 66; // line for page title
+		int fullLine = 147;	// full width line
+
+		Display.pageTitleBar(pageTitle, titleLine, fullLine);
+		Display.allLeadsMenu(fullLine);
+		Display.leadsHeader(fullLine);
 
 		for (int index = 0; index < MAX; index++)
 		{
@@ -117,7 +122,9 @@ public class CRMDriver {
 			} // end IF != null
 		} // end FOR loop
 		
-		Display.leadsFooter(fullLine);
+		Display.allLeadsFooter(fullLine);
+		
+		// input for menu options
 		
 	} // end viewAllLeads
 	
@@ -125,9 +132,17 @@ public class CRMDriver {
 	 * Reads the leadArray and displays all leads
 	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating)
 	 ******************************************************************************************************/
-	public static void viewSingleLead( Lead [] leadArray )
+	public static void viewLead( Lead [] leadArray )
 	{
-		System.out.print("\n------------------------------------------------------------");
+		int titleLine = 59;
+		int fullLine = 147;	
+		String leadName = "Donald Bloomenthal"; // pass in from view all leads
+		String pageTitle = leadName;
+		
+		Display.pageTitleBar(pageTitle, titleLine, fullLine);
+		Display.viewLeadMenu (fullLine);
+		Display.leadsHeader (fullLine);
+		
 		System.out.printf ( "%-20s%-40s%-20s%-20s%-10s%-20s%-10s\n", "Name","Address", "Email", "Phone", "Status", "Lead Source", "Rating\n" );
 		for (int index = 0; index < MAX; index++)
 		{
@@ -143,6 +158,9 @@ public class CRMDriver {
 				leadArray[index].getRating());
 			} // end IF != null
 		} // end FOR loop
+		
+		Display.viewLeadFooter(fullLine);
+		
 	} // end viewSingleLead
 	
 	/***************************************************************************************
