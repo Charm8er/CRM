@@ -162,12 +162,23 @@ public class CRMDriver {
 			while (inputFile.hasNext())
 			{
 				String name = inputFile.nextLine (); // lead full name
+				//System.out.println(name);
 				String address = inputFile.nextLine (); // lead mailing address
+				//System.out.println(address);
 				String email = inputFile.nextLine (); // lead email address
+				//System.out.println(email);
 				String phone = inputFile.nextLine (); // lead phone number
+				//System.out.println(phone);
 				String status = inputFile.nextLine (); // lead status
+				//System.out.println(status);
 				String leadSource = inputFile.nextLine (); // lead source
+				//System.out.println(leadSource);
 				int rating = inputFile.nextInt (); // lead rating
+				//System.out.println(rating);
+				String junk = inputFile.nextLine();
+				//System.out.println(junk);
+				
+				//System.out.println("test");
 
 				arrayObject = new Lead (name, address, email, phone, status, leadSource, rating);
 				leadArray [index] = arrayObject;
