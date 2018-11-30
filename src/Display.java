@@ -99,7 +99,7 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void viewLeadMenu (int fullLine)
 	{
-		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
+		System.out.printf("\n%41s%10s","", "All Leads (1) | Edit Lead (2) | Convert Lead (3) | Add Notes (4)\n");
 		System.out.println( );
 		starLine(fullLine);
 		System.out.println( );
@@ -117,7 +117,7 @@ public class Display {
 		starLine(fullLine);
 		System.out.println( );
 		
-		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
+		System.out.printf("\n%41s%10s","", "All Leads (1) | Edit Lead (2) | Convert Lead (3) | Add Notes (4)\n");
 		
 		System.out.println( );
 		starLine(fullLine);

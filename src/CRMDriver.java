@@ -15,9 +15,9 @@ public class CRMDriver {
 		inputFile = new Scanner(inFile);
 		
 		Lead [] leadArray = new Lead [MAX]; // Declaring and initializing array of leads
-		importList (leadArray);
+		importList ( leadArray );
 		
-		Pages.viewAllLeads(leadArray);
+		Pages.viewAllLeads( leadArray );
 
 
 	} // end main
