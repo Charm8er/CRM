@@ -179,20 +179,10 @@ public class Pages
 		String field;
 		String skip; // nextLine fix...
 		
-		String currentName;
-		String currentAddress;
-		String currentEmail;
-		String currentPhone;
-		String currentStatus;
-		String currentLeadSource;
+		String currentName, currentAddress, currentEmail, currentPhone, currentStatus, currentLeadSource;
 		int currentRating;
 		
-		String updatedName;
-		String updatedAddress;
-		String updatedEmail;
-		String updatedPhone;
-		String updatedStatus;
-		String updatedLeadSource;
+		String updatedName, updatedAddress, updatedEmail, updatedPhone, updatedStatus, updatedLeadSource;
 		int updatedRating;
 		
 		Display.pageTitleBar(pageTitle, titleLine, fullLine);
