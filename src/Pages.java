@@ -125,7 +125,7 @@ public class Pages
 				viewAllLeads(leadArray);
 			}	
 
-		// TODO Pages.Notes current lead....
+		// TODO Pages.Notes current lead.... ////////////////////////////////////////////
 			
 		Display.viewLeadFooter(fullLine);
 
@@ -140,7 +140,6 @@ public class Pages
 			else if ( menuSelect == 2)
 			{
 				editLead(leadID, leadArray);
-//				System.out.println( " TEST EDIT LEAD");/////////////////////////////////
 				menuSelect = 0;
 			}
 			else if ( menuSelect == 3)
