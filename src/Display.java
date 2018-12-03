@@ -37,6 +37,7 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void pageTitleBar (String pageTitle, int titleLine, int fullLine)
 	{	
+		System.out.println( "\n\n" );
 		starLine(fullLine);
 		System.out.println( );
 		starLine(titleLine);
@@ -91,6 +92,7 @@ public class Display {
 		System.out.println( );
 		starLine(fullLine);
 		System.out.println( );
+		System.out.println( "\n\n\n\n\n\n");
 	} // end allLeadsFooter
 	
 	/******************************************************************************************************
@@ -122,5 +124,127 @@ public class Display {
 		System.out.println( );
 		starLine(fullLine);
 		System.out.println( );
+		System.out.println( "\n\n\n\n\n\n");
 	} // end leadFooter
-}
+	
+	/******************************************************************************************************
+	 * Prints menu options below the title bar for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void editLeadMenu (int fullLine) ////////////////////////////////
+	{
+		System.out.printf("\n%4s%10s","", "Go Back (0) | Edit Name (1) | Edit Address (2) | Edit Email (3) | Edit Phone (4) | Edit Status (5) | Edit Lead Source (6) | "
+				+ "Edit Rating (7)\n");
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+		
+		dashLine(fullLine);
+		System.out.println( );
+		System.out.println( "\nWARNING! You're about to edit this lead.  Please read instructions for each item"
+				+ " before proceeding to the next.  To cancel this operation enter (0):  " );
+//		dashLine(fullLine);
+		System.out.println( );
+	} // end allLeadsFooter
+	
+	/******************************************************************************************************
+	 * Prints menu options below the array table for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void editLeadFooter (int fullLine) /////////////////////////////////
+	{
+		System.out.println( );
+		dashLine(fullLine);
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+		
+		System.out.printf("\n%4s%10s","", "Go Back (0) | Edit Name (1) | Edit Address (2) | Edit Email (3) | Edit Phone (4) | Edit Status (5) | Edit Lead Source (6) | "
+				+ "Edit Rating (7)\n");
+		
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( "\n\n\n\n\n\n");
+		
+	} // end leadFooter
+	
+	/******************************************************************************************************
+	 * Prints menu options below the array table for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void newLeadMenu (int fullLine)
+	{
+		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (1)\n");
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+		dashLine(fullLine);
+		System.out.println( );
+		System.out.println( "\nYou're about to enter a new lead into the system.  Please read instructions for each item"
+				+ " before proceeding to the next.  Proceed? (1) Back? (2): \n  " );
+		dashLine(fullLine);
+		System.out.println( );
+
+	} // end leadFooter
+	
+	/******************************************************************************************************
+	 * Prints menu options below the array table for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void newLeadFooter (int fullLine)
+	{
+		System.out.println( );
+		dashLine(fullLine);
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+		
+		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (1)\n");
+		
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+		System.out.println( "\n\n\n\n\n\n");
+	} // end leadFooter
+	
+	/******************************************************************************************************
+	 * Prints tool tips for various areas within program
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void toolTips (String object, String field)
+	{
+		// tool tips for new lead object 
+		if ( (field == "name") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nPlease enter the full name. ie. (First Last) ");
+//			System.out.println( "\nPlease enter the first name. Then the last name. ie. (First [enter] Last [enter]) ");
+		}
+		else if ( (field == "address") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nPlease enter and format the full address. ie. (123 Test Dr, Loveland, CO  80537) ");
+		}
+		else if ( (field == "email") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nPlease enter the full email address. ie. (lead@domain.com) ");
+		}
+		else if ( (field == "phone") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nPlease format the phone number with no dashes or spaces ie. (123456789) ");
+		}
+		else if ( (field == "status") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nUse only approved status markers. [ New | Working | Qualified | Converted ]");
+		}
+		else if ( (field == "leadSource") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nUse only approved sources. [ Flyer | Mailer | Other | Referral | Social Media | Website) ]");
+		}
+		else if ( (field == "rating") && (object == "newLead" || object == "editLead"))
+		{
+			System.out.println( "\nUse only ratings between 1 and 10, with 1 being the lowest and 10 the highest.");
+		}
+			
+	} // end leadFooter
+	
+	
+} // end display class

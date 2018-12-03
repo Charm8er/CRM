@@ -7,17 +7,24 @@ public class CRMDriver {
 	static Scanner input;
 	public static Scanner inputFile;
 	public static java.io.File inFile;
+	public static java.io.File outFile;
 	public static final int MAX = 500;
 	public static void main(String[] args) throws IOException
 	{
+		String importFileName = "test"; // file name for import of list to leadArray
+		String exportFileName = "test"; // file name for export from leadArray to list
+		inFile = new java.io.File(importFileName);
+		outFile = new java.io.File(exportFileName);
+		
 		input = new Scanner (System.in);
-		inFile = new java.io.File("leads");
 		inputFile = new Scanner(inFile);
 		
 		Lead [] leadArray = new Lead [MAX]; // Declaring and initializing array of leads
 		importList ( leadArray );
-		
 		Pages.viewAllLeads( leadArray );
+//		Pages.newLead( leadArray );
+		
+
 
 
 	} // end main
@@ -29,41 +36,71 @@ public class CRMDriver {
 	 ***************************************************************************************/
 	public static Lead createLead (Lead newLead)
 	{
+		String object = "newLead"; // identifies this object for other methods
+		String field; // identifies the field for other methods
+		
 		String name; // lead full name
 		String address; // lead mailing address
 		String email; // lead email address
 		String phone; // lead phone number
 		String status; // lead status
-		String leadSource; // lead source
-		int rating; // lead rating
+		String leadSource = null; // lead source
+		int rating; // lead rating	
+		int fullLine = 147;
 		
+		field = "name";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead name: " );
-		name = input.next ( );
+		name = input.nextLine();
+//		String first = input.nextLine(); // split first name for bug fix //////////////////////////////////////
+//		String last = input.nextLine ( ); // split last name for bug fix
+//		name = first + " " + last;
 		newLead.setName ( name );
+		Display.dashLine(fullLine);
 		
+		field = "address";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter mailing address: " );
-		address = input.next ( );
+		address = input.nextLine ( );
 		newLead.setAddress ( address );
+		Display.dashLine(fullLine);
 		
+		field = "email";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter email address: " );
-		email = input.next ( );
+		email = input.nextLine ( );
 		newLead.setEmail ( email );
-		
+		Display.dashLine(fullLine);
+			
+		field = "phone";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter phone number: " );
-		phone = input.next ( );
+		phone = input.nextLine ( );
+//		Display.formatData(field);
+		phone = phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"); // format phone number
 		newLead.setPhone ( phone );
+		Display.dashLine(fullLine);
 		
+		field = "status";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter status: " );
-		status = input.next ( );
+		status = input.nextLine ( );
 		newLead.setStatus ( status );
+		Display.dashLine(fullLine);
 		
+		field = "leadSource";
+		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead source: " );
-		leadSource = input.next ( );
+		leadSource = input.nextLine ( );
 		newLead.setLeadSource ( leadSource );
+		Display.dashLine(fullLine);
 		
-		System.out.println ( "\nEnter lead rating: (1 - 10)" );
+		field = "rating";
+		Display.toolTips( object, field );
+		System.out.println ( "\nEnter lead rating: " );
 		rating = input.nextInt ( );
 		newLead.setRating ( rating );
+		Display.dashLine(fullLine);
 		
 		return newLead;	
 	} // end createLead
@@ -100,5 +137,31 @@ public class CRMDriver {
 
 		inputFile.close ();
 	} // end importList
+	
+	/***************************************************************************************
+	 * Writes changes to leadArray 
+	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating)
+	 * @throws FileNotFoundException
+	 ***************************************************************************************/
+	public static void exportList(Lead [] leadArray) throws FileNotFoundException 
+	{
+		java.io.PrintWriter fout= new java.io.PrintWriter(outFile);
+		
+		for (int index = 0; index < MAX; index++)
+		{
+			if (leadArray [index] != null)
+			{
+				fout.println(leadArray [index].getName()); // lead full name
+				fout.println(leadArray [index].getAddress()); // lead mailing address
+				fout.println(leadArray [index].getEmail()); // lead email address
+				fout.println(leadArray [index].getPhone()); // lead phone number
+				fout.println(leadArray [index].getStatus()); // lead status
+				fout.println(leadArray [index].getLeadSource()); // lead source
+				fout.println(leadArray [index].getRating()); // lead rating
+			}
+		}
+		fout.println( ); // prints blank line at end of list
+		fout.close();
+	} // end exportList
 
 } // end CRMDriver
