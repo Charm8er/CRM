@@ -97,6 +97,7 @@ public class CRMDriver {
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead rating: " );
 		rating = input.nextInt ( );
+		input.nextLine(); // nextLine bug fix, Thank you Vicki!
 		newLead.setRating ( rating );
 		Display.dashLine(fullLine);
 		
@@ -117,21 +118,21 @@ public class CRMDriver {
 			System.exit(-1);
 		} // end IF inFile exists
 		
-			while (inputFile.hasNext())
-			{
-				String name = inputFile.nextLine (); // lead full name
-				String address = inputFile.nextLine (); // lead mailing address
-				String email = inputFile.nextLine (); // lead email address
-				String phone = inputFile.nextLine (); // lead phone number
-				String status = inputFile.nextLine (); // lead status
-				String leadSource = inputFile.nextLine (); // lead source
-				int rating = inputFile.nextInt (); // lead rating
-				String junk = inputFile.nextLine(); // import bug fix, Thank you Sarah!
+		while (inputFile.hasNext())
+		{
+			String name = inputFile.nextLine (); // lead full name
+			String address = inputFile.nextLine (); // lead mailing address
+			String email = inputFile.nextLine (); // lead email address
+			String phone = inputFile.nextLine (); // lead phone number
+			String status = inputFile.nextLine (); // lead status
+			String leadSource = inputFile.nextLine (); // lead source
+			int rating = inputFile.nextInt (); // lead rating
+			inputFile.nextLine(); // import bug fix, Thank you Sarah!
 
-				arrayObject = new Lead (name, address, email, phone, status, leadSource, rating);
-				leadArray [index] = arrayObject;
-				index ++;
-			} // end WHILE hasNext
+			arrayObject = new Lead (name, address, email, phone, status, leadSource, rating);
+			leadArray [index] = arrayObject;
+			index ++;
+		} // end WHILE hasNext
 
 		inputFile.close ();
 	} // end importList

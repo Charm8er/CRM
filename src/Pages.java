@@ -1,4 +1,7 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Pages
@@ -14,6 +17,7 @@ public class Pages
 	 ******************************************************************************************************/
 	public static void viewAllLeads( Lead [] leadArray ) throws FileNotFoundException
 	{
+
 		input = new Scanner (System.in);
 		menuSelect = new Scanner(System.in);
 		String pageTitle = "   ALL LEADS   "; // page title
@@ -28,7 +32,7 @@ public class Pages
 
 		for (int index = 0; index < MAX; index++)
 		{
-			if (leadArray [index] != null)
+			if (leadArray [index] != null && leadArray [index].getStatus() != "Converted") 
 			{
 				System.out.printf("%-10s%-20s%-40s%-20s%-20s%-10s%-20s%-10s\n",	
 				index+1,
@@ -62,17 +66,20 @@ public class Pages
 			}
 			else if ( menuSelect == 3)
 			{
+				Collections.sort(leadArray,new Sort.SortByName());
 				System.out.println( " TEST SORT NAME"); /////////////////////////////////
 				menuSelect = 0;
 			}
 			else if ( menuSelect == 4)
 			{
+				Collections.sort(leadArray,new Sort.SortByStatus());
 				System.out.println( " TEST SORT STATUS"); ///////////////////////////////
 				menuSelect = 0;
 			}
 			else if (menuSelect == 5)
 			{
-				System.out.println( " TEST SORT RATING"); ///////////////////////////////
+				Collections.sort(leadArray,new Sort.SortByRating());
+//				System.out.println( " TEST SORT RATING"); ///////////////////////////////
 				menuSelect = 0;
 			}
 			else
