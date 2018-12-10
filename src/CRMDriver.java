@@ -1,38 +1,48 @@
-
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-public class CRMDriver {
-	
+public class CRMDriver 
+{
 	static Scanner input;
-	public static Scanner inputFile;
-	public static java.io.File inFile;
-	public static java.io.File outFile;
+	public static Scanner inputLeadFile;
+	public static Scanner inputNoteFile;
+	public static java.io.File leadInFile;
+	public static java.io.File leadOutFile;
+	public static java.io.File noteInFile;
+	public static java.io.File noteOutFile;
 	public static final int MAX = 500;
-	public static void main(String[] args) throws IOException
+	public static final int NOTE_MAX = 4000;
+	public static void main(String[] args) throws IOException, ParseException
 	{
-		String importFileName = "test"; // file name for import of list to leadArray
-		String exportFileName = "test"; // file name for export from leadArray to list
-		inFile = new java.io.File(importFileName);
-		outFile = new java.io.File(exportFileName);
+		int listSize = 0;
+		int noteListSize = 0;
+		leadInFile = new java.io.File("leads");
+		leadOutFile = new java.io.File("leads");	
+		noteInFile = new java.io.File("notes");
+		noteOutFile = new java.io.File("notes");
 		
 		input = new Scanner (System.in);
-		inputFile = new Scanner(inFile);
+		inputLeadFile = new Scanner(leadInFile);
+		inputNoteFile = new Scanner(noteInFile);
 		
 		Lead [] leadArray = new Lead [MAX]; // Declaring and initializing array of leads
-		importList ( leadArray );
-		Pages.viewAllLeads( leadArray );
-//		Pages.newLead( leadArray );
-		
+		Note [] noteArray = new Note [NOTE_MAX]; // Declaring and initializing array of notes
+		listSize = importList ( leadArray );
+		noteListSize = importNoteList ( noteArray );
+		Pages.mainMenu(listSize, noteListSize, noteArray, leadArray);
 
 	} // end main
 	
 	/***************************************************************************************
-	 * Receives a Lead object and allows user to input data members
+	 * Receives a Lead object and lastLeadNum created (allows user to input data members)
+	 * @param lastLeadNum, the last assigned leadNum (will be incremented for new Lead)
 	 * @param newLead, Lead class object (user will input data)
 	 * @return newLead
 	 ***************************************************************************************/
-	public static Lead createLead (Lead newLead)
+	public static Lead createLead (int lastLeadNum, Lead newLead)
 	{
 		String object = "newLead"; // identifies this object for other methods
 		String field; // identifies the field for other methods
@@ -44,15 +54,13 @@ public class CRMDriver {
 		String status; // lead status
 		String leadSource = null; // lead source
 		int rating; // lead rating	
-		int fullLine = 147;
+		int leadNum; // assigned lead number
+		int fullLine = 147; // full line width
 		
 		field = "name";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead name: " );
 		name = input.nextLine();
-//		String first = input.nextLine(); // split first name for bug fix //////////////////////////////////////
-//		String last = input.nextLine ( ); // split last name for bug fix
-//		name = first + " " + last;
 		newLead.setName ( name );
 		Display.dashLine(fullLine);
 		
@@ -74,7 +82,6 @@ public class CRMDriver {
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter phone number: " );
 		phone = input.nextLine ( );
-//		Display.formatData(field);
 		phone = phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"); // format phone number
 		newLead.setPhone ( phone );
 		Display.dashLine(fullLine);
@@ -101,50 +108,131 @@ public class CRMDriver {
 		newLead.setRating ( rating );
 		Display.dashLine(fullLine);
 		
+		field = "leadNum";
+		leadNum = lastLeadNum + 1;
+		System.out.println ( "\nAssigned Lead Number: " + leadNum );
+		newLead.setLeadNum ( leadNum );
+		Display.dashLine(fullLine);
+		
 		return newLead;	
 	} // end createLead
 	
+	
+	/***************************************************************************************
+	 * Receives a Note object and leadNum (allows user to input note tied to lead)
+	 * @param leadNum, lead number for link to leadArray
+	 * @param newNote, Note class object (user will input data)
+	 * @return newNote
+	 ***************************************************************************************/
+	public static Note createNote ( int leadNum, Note newNote )
+	{
+		String object = "newLead"; // identifies this object for other methods
+		String field; // identifies the field for other methods
+		int fullLine = 147; // full line width
+		String contents; // note contents
+		Date date; // current date
+		
+		field = "leadNum";
+		newNote.setLeadNum ( leadNum );
+		
+		field = "date";
+		date = new Date ();
+		newNote.setDate ( date );
+		
+		field = "contents";
+		Display.toolTips( object, field );
+		System.out.println ( "\nEnter note: " );
+		contents = input.nextLine ( );
+		newNote.setContents ( contents );
+		Display.dashLine(fullLine);
+		
+		return newNote;
+	}
+	
 	/***************************************************************************************
 	 * Imports lead list to leadArray
-	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating)
+	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating, leadNum)
 	 ***************************************************************************************/
-	public static void importList(Lead [] leadArray) 
+	public static int importList(Lead [] leadArray) 
 	{
-		Lead arrayObject = new Lead (); // Declaring object of Lead type, used to fill array
+		Lead leadObject = new Lead (); // Declaring object of Lead type, used to fill array
 		int index = 0; // array location
-		if(!inFile.exists())
+		int listSize = 0; // counter for array size
+		if(!leadInFile.exists())
 		{
 			System.out.println ( "file not found" );
 			System.exit(-1);
 		} // end IF inFile exists
 		
-		while (inputFile.hasNext())
+		while (inputLeadFile.hasNext())
 		{
-			String name = inputFile.nextLine (); // lead full name
-			String address = inputFile.nextLine (); // lead mailing address
-			String email = inputFile.nextLine (); // lead email address
-			String phone = inputFile.nextLine (); // lead phone number
-			String status = inputFile.nextLine (); // lead status
-			String leadSource = inputFile.nextLine (); // lead source
-			int rating = inputFile.nextInt (); // lead rating
-			inputFile.nextLine(); // import bug fix, Thank you Sarah!
+			
+			String name = inputLeadFile.nextLine (); // lead full name
+			String address = inputLeadFile.nextLine (); // lead mailing address
+			String email = inputLeadFile.nextLine (); // lead email address
+			String phone = inputLeadFile.nextLine (); // lead phone number
+			String status = inputLeadFile.nextLine (); // lead status
+			String leadSource = inputLeadFile.nextLine (); // lead source
+			int rating = inputLeadFile.nextInt (); // lead rating
+			int leadNum = inputLeadFile.nextInt (); // lead generated ID number
+			inputLeadFile.nextLine(); // import bug fix, Thank you Sarah!
 
-			arrayObject = new Lead (name, address, email, phone, status, leadSource, rating);
-			leadArray [index] = arrayObject;
+			leadObject = new Lead (leadNum, name, address, email, phone, status, leadSource, rating);
+			leadArray [index] = leadObject;
 			index ++;
+			listSize++;
 		} // end WHILE hasNext
 
-		inputFile.close ();
+		inputLeadFile.close ();
+		return listSize;
+	} // end importList
+	
+	/***************************************************************************************
+	 * Imports note list to noteArray
+	 * @param noteArray, array of notes (leadNum, date, contents)
+	 * @throws ParseException 
+	 ***************************************************************************************/
+	public static int importNoteList(Note [] noteArray) throws ParseException 
+	{
+		Note noteObject = new Note (); // Declaring object of Lead type, used to fill array
+		int index = 0; // array location
+		int noteListSize = 0; // counter for array size
+		if(!noteInFile.exists())
+		{
+			System.out.println ( "file not found" );
+			System.exit(-1);
+		} // end IF inFile exists
+		
+		while (inputNoteFile.hasNext())
+		{
+			
+			int leadNum = inputNoteFile.nextInt (); // lead number
+			inputNoteFile.nextLine(); // import bug fix
+			
+			String dateAsString = inputNoteFile.nextLine (); // note date
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+			Date date = sdf.parse(dateAsString);
+			
+			String contents = inputNoteFile.nextLine (); // note contents
+
+			noteObject = new Note (leadNum,contents, date);
+			noteArray [index] = noteObject;
+			index ++;
+			noteListSize++;
+		} // end WHILE hasNext
+
+		inputNoteFile.close ();
+		return noteListSize;
 	} // end importList
 	
 	/***************************************************************************************
 	 * Writes changes to leadArray 
-	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating)
+	 * @param leadArray, array of leads (name, address, email, phone, status, leadSource, rating, leadNum)
 	 * @throws FileNotFoundException
 	 ***************************************************************************************/
 	public static void exportList(Lead [] leadArray) throws FileNotFoundException 
 	{
-		java.io.PrintWriter fout= new java.io.PrintWriter(outFile);
+		java.io.PrintWriter fout= new java.io.PrintWriter(leadOutFile);
 		
 		for (int index = 0; index < MAX; index++)
 		{
@@ -157,8 +245,35 @@ public class CRMDriver {
 				fout.println(leadArray [index].getStatus()); // lead status
 				fout.println(leadArray [index].getLeadSource()); // lead source
 				fout.println(leadArray [index].getRating()); // lead rating
-			}
-		}
+				fout.println(leadArray [index].getLeadNum()); // lead number
+			} // end IF null
+		} // end FOR array loop
+		fout.println( ); // prints blank line at end of list
+		fout.close();
+	} // end exportList
+	
+	/***************************************************************************************
+	 * Writes changes to noteArray 
+	 * @param noteArray, array of notes (leadNum, date, contents)
+	 * @throws FileNotFoundException
+	 ***************************************************************************************/
+	public static void exportNoteList(Note [] noteArray) throws FileNotFoundException 
+	{
+		java.io.PrintWriter fout= new java.io.PrintWriter(noteOutFile);
+		
+		for (int index = 0; index < MAX; index++)
+		{
+			if (noteArray [index] != null)
+			{
+				fout.println(noteArray [index].getLeadNum()); // lead number
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+				String formatDate = sdf.format(noteArray [index].getDate());
+				fout.println(formatDate); // note date
+				
+				fout.println(noteArray [index].getContents()); // lead email address
+			} // end IF null
+		} // end FOR array loop
 		fout.println( ); // prints blank line at end of list
 		fout.close();
 	} // end exportList

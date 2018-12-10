@@ -1,5 +1,6 @@
 
-public class Display {
+public class Display 
+{
 	
 	/******************************************************************************************************
 	 * Prints dashed line
@@ -30,6 +31,20 @@ public class Display {
 	} // end starLine
 	
 	/******************************************************************************************************
+	 * Prints starred line
+	 * @param line (line length)
+	 ******************************************************************************************************/
+	public static void blankLine (int line) 
+	{	
+
+		for (int blank = line ; blank > 0 ; blank--)
+		{
+			System.out.print ( " " );	
+		} // end FOR star
+		
+	} // end starLine
+	
+	/******************************************************************************************************
 	 * Prints the title bar for the page
 	 * @param pageTitle (title for given page)
 	 * @param titleLine (line next to title)
@@ -48,6 +63,57 @@ public class Display {
 		System.out.println( );
 		
 	} // end allLeadsTitleBar
+	
+	/******************************************************************************************************
+	 * Prints menu options below the title bar for "All Leads" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void mainMenu (int fullLine)
+	{
+		System.out.printf("\n%46s%10s","", "All Leads (1) | Converted Leads (2) | Search Leads (3)\n");
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+	} // end allLeadsFooter
+	
+	/******************************************************************************************************
+	 * Prints search interface on Pages.mainMenu
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void search (int fullLine)
+	{
+		dashLine(fullLine);
+		System.out.println( );
+		System.out.println( "\nSearch by (name, address, phone number or email).  Search results will"
+				+ " display any related information that matches your query. Enter (00) to exit.\n" );
+		dashLine(fullLine);
+		System.out.println( );
+		System.out.println( );
+		System.out.println( "Enter Search Query: \n");
+		dashLine(fullLine);
+		System.out.println( );
+		starLine(fullLine);
+		System.out.println( );
+	} // end allLeadsFooter
+	
+	/******************************************************************************************************
+	 * Prints notes below viewLead info and above footer menu for "View Lead" page
+	 * @param fullLine (line length)
+	 ******************************************************************************************************/
+	public static void notes (int fullLine, int subTitleLine)
+	{
+		System.out.println( );
+		System.out.println( );
+		dashLine(fullLine);
+		System.out.println( );
+		starLine(subTitleLine);
+		System.out.print( "   NOTES   " );
+		starLine(subTitleLine);
+		System.out.println( );
+		dashLine(fullLine);
+		System.out.println( );
+		System.out.println( );
+	} // end allLeadsFooter
 	
 	/******************************************************************************************************
 	 * Prints "All Leads" header for array values
@@ -69,7 +135,7 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void allLeadsMenu (int fullLine)
 	{
-		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
+		System.out.printf("\n%21s%10s","", "Main Menu (0) | New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
 		System.out.println( );
 		starLine(fullLine);
 		System.out.println( );
@@ -87,7 +153,7 @@ public class Display {
 		starLine(fullLine);
 		System.out.println( );
 		
-		System.out.printf("\n%29s%10s","", "New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
+		System.out.printf("\n%21s%10s","", "Main Menu (0) | New Lead (1) | View Lead (2) | Sort by Name (3) | Sort by Status (4) | Sort by Rating (5)\n");
 		
 		System.out.println( );
 		starLine(fullLine);
@@ -113,6 +179,7 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void viewLeadFooter (int fullLine)
 	{
+		System.out.println( );
 		System.out.println( );
 		dashLine(fullLine);
 		System.out.println( );
@@ -174,7 +241,7 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void newLeadMenu (int fullLine)
 	{
-		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (1)\n");
+		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (2)\n");
 		System.out.println( );
 		starLine(fullLine);
 		System.out.println( );
@@ -199,7 +266,7 @@ public class Display {
 		starLine(fullLine);
 		System.out.println( );
 		
-		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (1)\n");
+		System.out.printf("\n%56s%10s","", "Create New Lead (1) | All Leads (2)\n");
 		
 		System.out.println( );
 		starLine(fullLine);
@@ -213,11 +280,9 @@ public class Display {
 	 ******************************************************************************************************/
 	public static void toolTips (String object, String field)
 	{
-		// tool tips for new lead object 
 		if ( (field == "name") && (object == "newLead" || object == "editLead"))
 		{
 			System.out.println( "\nPlease enter the full name. ie. (First Last) ");
-//			System.out.println( "\nPlease enter the first name. Then the last name. ie. (First [enter] Last [enter]) ");
 		}
 		else if ( (field == "address") && (object == "newLead" || object == "editLead"))
 		{
@@ -233,7 +298,7 @@ public class Display {
 		}
 		else if ( (field == "status") && (object == "newLead" || object == "editLead"))
 		{
-			System.out.println( "\nUse only approved status markers. [ New | Working | Qualified | Converted ]");
+			System.out.println( "\nUse only approved status markers. [ New | Working | Qualified | Converted | Lost ]");
 		}
 		else if ( (field == "leadSource") && (object == "newLead" || object == "editLead"))
 		{
@@ -245,6 +310,5 @@ public class Display {
 		}
 			
 	} // end leadFooter
-	
 	
 } // end display class

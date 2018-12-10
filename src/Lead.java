@@ -1,6 +1,6 @@
 
 public class Lead 
-{
+{	
 	private String name;
 	private String address;
 	private String email;
@@ -8,30 +8,33 @@ public class Lead
 	private String status;
 	private String leadSource;
 	private int rating;
+	private int leadNum;
 	
 	public Lead ()
-	{
+	{	
 		name = null;
 		address = null;
 		email = null;
 		phone = null;
 		status = null;
 		leadSource = null;
+		leadNum = 0000;
 		rating = 10;
 	}
 	
 	/***************************************************************************************
-	 * @param name
-	 * @param address
-	 * @param email
-	 * @param phone
-	 * @param status
-	 * @param leadSource
-	 * @param rating
+	 * @param name, lead name
+	 * @param address, lead address
+	 * @param email, lead email
+	 * @param phone, lead phone
+	 * @param status, lead status
+	 * @param leadSource, lead source
+	 * @param rating, lead rating
+	 * @param leadNum, assigned lead number
 	 ***************************************************************************************/
-	public Lead(String name, String address, String email, String phone, String status, String leadSource, int rating) 
+	public Lead(int leadNum, String name, String address, String email, String phone, String status, String leadSource, int rating) 
 	{
-		super();
+		super();	
 		this.name = name;
 		this.address = address;
 		this.email = email;
@@ -39,6 +42,7 @@ public class Lead
 		this.status = status;
 		this.leadSource = leadSource;
 		this.rating = rating;
+		this.leadNum = leadNum;
 	}
 
 	/* (non-Javadoc)
@@ -47,10 +51,26 @@ public class Lead
 	@Override
 	public String toString() 
 	{
-		return "Lead [name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone + ", status="
+		return "Lead [leadNum =" + leadNum + ",name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone + ", status="
 				+ status + ", leadSource=" + leadSource + ", rating=" + rating + "]";
 	}
 
+	/***************************************************************************************
+	 * @return the leadNum
+	 ***************************************************************************************/
+	public int getLeadNum() 
+	{
+		return leadNum;
+	}
+
+	/***************************************************************************************
+	 * @param leadNum the leadNum to set
+	 ***************************************************************************************/
+	public void setLeadNum(int leadNum) 
+	{
+		this.leadNum = leadNum;
+	}
+	
 	/***************************************************************************************
 	 * @return the name
 	 ***************************************************************************************/
