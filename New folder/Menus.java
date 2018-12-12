@@ -61,7 +61,6 @@ public class Menus
 						search = search.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"); // format phone number
 					} // end IF search match numRegex (phone format)
 					
-					// search array using exact match first then contains
 					for (int index = 0; index < listSize && continueSearch == true; index++)
 					{
 						if (leadArray[index].getName().equalsIgnoreCase(search)
