@@ -1,13 +1,16 @@
+// Contains all functions needed to create Note objects for the noteArray.
+
 import java.util.Date;
 
-public class Note {
-	private int leadNum;
-	private String contents;
-	Date date;
+public class Note 
+{
+	private int leadNum; // auto-assigned identification number
+	private String contents; // the actual notes
+	Date date; // date/time
 	
 	public Note ()
 	{
-		leadNum = 0000;
+		leadNum = 0000; 
 		date = new Date ();
 		contents = null;
 	}
@@ -72,6 +75,5 @@ public class Note {
 	 ***************************************************************************************/
 	public void setDate(Date date) {
 		this.date = date;
-	}	
-	
-}
+	}		
+} // end Note class

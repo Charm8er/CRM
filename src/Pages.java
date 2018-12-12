@@ -1,16 +1,13 @@
+// Contains the pages for console display, pulls elements from Menus.java and Display.java to create the interface.
+
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Collections;
 import java.util.Scanner;
 
 public class Pages
 {
-	static Scanner input;
-	public static final int MAX = 500; // leadArray size
-	public static final int NOTE_MAX = 4000; // notArray Size
+	static Scanner input; // scanner
+	public static final int FULLLINE = 147; // full width line
 	
 	/******************************************************************************************************
 	 * Main menu for program
@@ -26,10 +23,9 @@ public class Pages
 		input = new Scanner (System.in);
 		String pageTitle = "   CRM MENU   "; // page title
 		int titleLine = 66; // line for page title
-		int fullLine = 147;	// full width line
 
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.mainMenu(fullLine);	
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.mainMenu(FULLLINE);	
 		Menus.mainMenuSelect(listSize, noteListSize, noteArray, leadArray);
 		
 	} // end mainMenu
@@ -47,13 +43,12 @@ public class Pages
 	{
 		String pageTitle = "   ALL LEADS   "; // page title for header
 		int titleLine = 66; // line for page title
-		int fullLine = 147;	// full width line
 
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.allLeadsMenu(fullLine);
-		Display.leadsHeader(fullLine);
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.allLeadsMenu(FULLLINE);
+		Display.leadsHeader(FULLLINE);
 
-		for (int index = 0; index < MAX; index++)
+		for (int index = 0; index < listSize; index++)
 		{
 			if (leadArray [index] != null && !"Converted".equals(leadArray [index].getStatus())) 
 			{
@@ -69,7 +64,7 @@ public class Pages
 			} // end IF != null
 		} // end FOR loop
 		
-		Display.allLeadsFooter(fullLine);
+		Display.allLeadsFooter(FULLLINE);
 		Menus.leadsMenuSelect(listSize, noteListSize, noteArray, leadArray);
 		
 	} // end viewAllLeads
@@ -88,20 +83,19 @@ public class Pages
 	{	
 		String pageTitle = "   SEARCH RESULT   "; // page title for header
 		int titleLine = 64; // line for page title
-		int fullLine = 147;	// full width line
 
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.allLeadsMenu(fullLine);
-		Display.leadsHeader(fullLine);
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.allLeadsMenu(FULLLINE);
+		Display.leadsHeader(FULLLINE);
 
-		for (int index = 0; index < MAX; index++)
+		for (int index = 0; index < listSize; index++)
 		{
 			if ((leadArray [index] != null) && 
-					((leadArray[index].getName().contains(search) 
-					|| leadArray[index].getAddress().contains(search) 
-					|| leadArray[index].getPhone().contains(search) 
-					|| leadArray[index].getEmail().contains(search)) 
-					|| (leadArray[index].getStatus().equals(search))))
+					((leadArray[index].getName().toLowerCase().contains(search) 
+					|| leadArray[index].getAddress().toLowerCase().contains(search) 
+					|| leadArray[index].getPhone().toLowerCase().contains(search) 
+					|| leadArray[index].getEmail().toLowerCase().contains(search)) 
+					|| (leadArray[index].getStatus().toLowerCase().equals(search))))
 			{
 				System.out.printf("%-10s%-20s%-40s%-20s%-20s%-10s%-20s%-10s\n",	
 				leadArray[index].getLeadNum(),	
@@ -115,8 +109,8 @@ public class Pages
 			} // end IF != null && search params 
 		} // end FOR loop
 		
-		Display.allLeadsFooter(fullLine);
-		Menus.leadsMenuSelect(listSize, noteListSize, noteArray, leadArray);
+		Display.allLeadsFooter(FULLLINE);
+		Menus.searchMenuSelect(listSize, noteListSize, search, noteArray, leadArray);
 		
 	} // end viewAllLeads		
 	
@@ -134,12 +128,11 @@ public class Pages
 		String pageTitle = "   View Lead   "; // page title for header
 		int titleLine = 66; // line for page title
 		int subTitleLine = 68; // line for subtitle
-		int fullLine = 147; // full width line
 		int leadID = 0; // lead ID number		
 		
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.viewLeadMenu (fullLine);
-		Display.leadsHeader (fullLine);
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.viewLeadMenu (FULLLINE);
+		Display.leadsHeader (FULLLINE);
 
 			if (leadArray [index] != null)
 			{
@@ -160,9 +153,9 @@ public class Pages
 				viewAllLeads(listSize, noteListSize, noteArray, leadArray);
 			} // end IF no item at array location
 			
-		Display.notes(fullLine, subTitleLine);
+		Display.notes(FULLLINE, subTitleLine);
 		
-		for (int i = 0; i < NOTE_MAX; i++)
+		for (int i = 0; i < noteListSize; i++)
 		{
 			if (noteArray [i] != null && noteArray [i].getLeadNum() == (leadArray [index].getLeadNum())) 
 			{
@@ -176,7 +169,7 @@ public class Pages
 			} // end IF != null && Note leadNum == Lead leadNum
 		} // end FOR array loop
 			
-		Display.viewLeadFooter(fullLine);
+		Display.viewLeadFooter(FULLLINE);
 		Menus.viewLeadMenuSelect(listSize, noteListSize, index, leadID, noteArray, leadArray);
 		
 	} // end viewLead
@@ -193,12 +186,11 @@ public class Pages
 			int listSize, int noteListSize, int leadID, Note [] noteArray, Lead [] leadArray ) throws FileNotFoundException
 	{
 		int titleLine = 66; // line for page title
-		int fullLine = 147; // full width line
 		String pageTitle = "   Edit Lead   "; // page title for header
 
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.editLeadMenu(fullLine); 
-		Display.leadsHeader (fullLine);
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.editLeadMenu(FULLLINE); 
+		Display.leadsHeader (FULLLINE);
 
 		if (leadArray [leadID] != null)
 		{
@@ -218,7 +210,7 @@ public class Pages
 			viewAllLeads(listSize, noteListSize, noteArray, leadArray);
 		} // end IF array location empty	
 		
-		Display.editLeadFooter(fullLine); 
+		Display.editLeadFooter(FULLLINE); 
 		Menus.editLeadMenuSelect(listSize, noteListSize, leadID, noteArray, leadArray);
 			
 	} // end editLead
@@ -234,32 +226,13 @@ public class Pages
 			int listSize, int noteListSize, Note [] noteArray, Lead [] leadArray ) throws FileNotFoundException
 	{
 		int titleLine = 63; // line for page title
-		int fullLine = 147; // full width line
 		String pageTitle = "   Create New Lead   ";
 		
-		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-		Display.newLeadMenu(fullLine);
-		Menus.newLeadMenuSelect(listSize, noteListSize, noteArray, leadArray);
+		Display.pageTitleBar(pageTitle, titleLine, FULLLINE);
+		Display.newLeadMenu(FULLLINE);
+		listSize = Menus.newLeadMenuSelect(listSize, noteListSize, noteArray, leadArray);
 		
 		return listSize;
 	} // end newLead
-	
-//	/******************************************************************************************************
-//	 * DEPRACTED
-//	 * Displays prompt for adding a note to a Lead, exports note to list
-//	 * @param noteListSize, array size of note Array
-//	 * @param noteArray, array of notes (leadNum, date, contents)
-//	 ******************************************************************************************************/
-//	public static int newNote ( int noteListSize, Note [] noteArray ) throws FileNotFoundException
-//	{
-//		int titleLine = 63; // line for page title
-//		int fullLine = 147; // full width line
-//		String pageTitle = "   Create New Note   ";
-//		
-//		Display.pageTitleBar(pageTitle, titleLine, fullLine);
-//		Display.newLeadMenu(fullLine);
-//		
-//		return noteListSize;
-//	} // end newLead
 
 } // end Pages class

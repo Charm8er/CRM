@@ -1,3 +1,6 @@
+// Main driver class for CRM program.  Imports/Exports leadArray and noteArray. Calls the Pages.mainMenu()
+// to start program. Also contains the createLead and createNote functions to create Lead and Note objects.
+
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,29 +9,30 @@ import java.util.Scanner;
 
 public class CRMDriver
 {
-	static Scanner input;
-	public static Scanner inputLeadFile;
-	public static Scanner inputNoteFile;
-	public static java.io.File leadInFile;
-	public static java.io.File leadOutFile;
-	public static java.io.File noteInFile;
-	public static java.io.File noteOutFile;
-	public static final int MAX = 500;
-	public static final int NOTE_MAX = 4000;
+	static Scanner input; // scanner
+	public static Scanner inputLeadFile; // scanner for leadArray list
+	public static Scanner inputNoteFile; // scanner for noteArray list
+	public static java.io.File leadInFile; // inFile for leadArray
+	public static java.io.File leadOutFile; // outFile for leadArray
+	public static java.io.File noteInFile; // inFile for noteArray
+	public static java.io.File noteOutFile; // outFile for noteArray
+	public static final int LEAD_MAX = 500; // leadArray MAX size
+	public static final int NOTE_MAX = 4000; // noteArray MAX size
+	public static final int FULLLINE = 147; // full width line
 	public static void main(String[] args) throws IOException, ParseException
 	{
-		int listSize = 0;
-		int noteListSize = 0;
-		leadInFile = new java.io.File("leads");
-		leadOutFile = new java.io.File("leads");
-		noteInFile = new java.io.File("notes");
-		noteOutFile = new java.io.File("notes");
+		int listSize = 0; // leadArray size
+		int noteListSize = 0; // noteArray size
+		leadInFile = new java.io.File("leads"); // inFile name for leadArray
+		leadOutFile = new java.io.File("leads"); // outFile name for leadArray
+		noteInFile = new java.io.File("notes"); // inFile name for noteArray
+		noteOutFile = new java.io.File("notes"); // outFile name for noteArray
 
 		input = new Scanner (System.in);
 		inputLeadFile = new Scanner(leadInFile);
 		inputNoteFile = new Scanner(noteInFile);
 
-		Lead [] leadArray = new Lead [MAX]; // Declaring and initializing array of leads
+		Lead [] leadArray = new Lead [LEAD_MAX]; // Declaring and initializing array of leads
 		Note [] noteArray = new Note [NOTE_MAX]; // Declaring and initializing array of notes
 		listSize = importList ( leadArray );
 		noteListSize = importNoteList ( noteArray );
@@ -55,28 +59,27 @@ public class CRMDriver
 		String leadSource = null; // lead source
 		int rating; // lead rating
 		int leadNum; // assigned lead number
-		int fullLine = 147; // full line width
 
 		field = "name";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead name: " );
 		name = input.nextLine();
 		newLead.setName ( name );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "address";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter mailing address: " );
 		address = input.nextLine ( );
 		newLead.setAddress ( address );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "email";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter email address: " );
 		email = input.nextLine ( );
 		newLead.setEmail ( email );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "phone";
 		Display.toolTips( object, field );
@@ -84,21 +87,21 @@ public class CRMDriver
 		phone = input.nextLine ( );
 		phone = phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"); // format phone number
 		newLead.setPhone ( phone );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "status";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter status: " );
 		status = input.nextLine ( );
 		newLead.setStatus ( status );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "leadSource";
 		Display.toolTips( object, field );
 		System.out.println ( "\nEnter lead source: " );
 		leadSource = input.nextLine ( );
 		newLead.setLeadSource ( leadSource );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "rating";
 		Display.toolTips( object, field );
@@ -106,13 +109,13 @@ public class CRMDriver
 		rating = input.nextInt ( );
 		input.nextLine(); // nextLine bug fix, Thank you Vicki!
 		newLead.setRating ( rating );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		field = "leadNum";
 		leadNum = lastLeadNum + 1;
 		System.out.println ( "\nAssigned Lead Number: " + leadNum );
 		newLead.setLeadNum ( leadNum );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		return newLead;
 	} // end createLead
@@ -128,7 +131,6 @@ public class CRMDriver
 	{
 		String object = "newLead"; // identifies this object for other methods
 		String field; // identifies the field for other methods
-		int fullLine = 147; // full line width
 		String contents; // note contents
 		Date date; // current date
 
@@ -144,7 +146,7 @@ public class CRMDriver
 		System.out.println ( "\nEnter note: " );
 		contents = input.nextLine ( );
 		newNote.setContents ( contents );
-		Display.dashLine(fullLine);
+		Display.dashLine(FULLLINE);
 
 		return newNote;
 	}
@@ -234,7 +236,7 @@ public class CRMDriver
 	{
 		java.io.PrintWriter fout= new java.io.PrintWriter(leadOutFile);
 
-		for (int index = 0; index < MAX; index++)
+		for (int index = 0; index < LEAD_MAX; index++)
 		{
 			if (leadArray [index] != null)
 			{
@@ -261,7 +263,7 @@ public class CRMDriver
 	{
 		java.io.PrintWriter fout= new java.io.PrintWriter(noteOutFile);
 
-		for (int index = 0; index < MAX; index++)
+		for (int index = 0; index < NOTE_MAX; index++)
 		{
 			if (noteArray [index] != null)
 			{

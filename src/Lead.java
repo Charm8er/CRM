@@ -1,23 +1,24 @@
+// Contains all functions needed to create Lead objects for the leadArray.
 
 public class Lead 
 {	
-	private String name;
-	private String address;
-	private String email;
-	private String phone;
-	private String status;
-	private String leadSource;
-	private int rating;
-	private int leadNum;
+	private String name; // full name (first and last)
+	private String address; // full address (street, city, state, zipcode)
+	private String email; // email address for lead
+	private String phone; // phone number for lead
+	private String status; // status for lead ( New | Working | Qualified | Converted | Lost )
+	private String leadSource; // lead source ( Flyer | Mailer | Other | Referral | Social Media | Website )
+	private int rating; // rating, hot/cold scale (0-10) 
+	private int leadNum; // auto-assigned identification number
 	
 	public Lead ()
 	{	
-		name = null;
-		address = null;
-		email = null;
-		phone = null;
-		status = null;
-		leadSource = null;
+		name = null; 
+		address = null; 
+		email = null; 
+		phone = null; 
+		status = null; 
+		leadSource = null; // 
 		leadNum = 0000;
 		rating = 10;
 	}
@@ -45,9 +46,9 @@ public class Lead
 		this.leadNum = leadNum;
 	}
 
-	/* (non-Javadoc)
+	/************************************************************************** (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
+	 ***************************************************************************************/
 	@Override
 	public String toString() 
 	{
@@ -182,5 +183,4 @@ public class Lead
 	{
 		this.rating = rating;
 	}
-
-}
+} // end Lead class

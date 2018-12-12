@@ -4,7 +4,10 @@
 /Menus.class
 /Note.class
 /Pages.class
+/Sort$SortByLeadNum.class
+/Sort$SortByName.class
 /Sort$SortByRating.class
+/Sort$SortByStatus.class
 /Sort.class
 /Testing.class
 /leads
